@@ -65,6 +65,7 @@ export function Reveal({
 
 export const navItems = [
   { id: "overview", label: "The experience" },
+  { id: "tracks", label: "Domains" },
   { id: "announcements", label: "Race control" },
   { id: "schedule", label: "Schedule" },
   { id: "teams", label: "The grid" },

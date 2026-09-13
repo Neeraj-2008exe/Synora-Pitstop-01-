@@ -27,11 +27,19 @@ test("core public facts and all required sections are present", () => {
     "SRM University-AP",
     "₹30,000",
     "329",
+    "11:00 AM",
+    "05:00 PM",
+    "05:00 AM",
+    "Food is provided",
+    "valid for one year",
+    "Embedded Systems",
+    "Generative AI",
   ]) {
     assert.ok(content.includes(fact), `Missing event fact: ${fact}`);
   }
   for (const id of [
     "announcements",
+    "tracks",
     "schedule",
     "teams",
     "rules",
@@ -41,6 +49,7 @@ test("core public facts and all required sections are present", () => {
     assert.match(app, new RegExp(`id="${id}"`), `Missing section: ${id}`);
   }
   assert.match(content, /teams: Team\[\] = \[\]/);
+  assert.match(content, /choose their own problem statement/i);
 });
 
 test("release assets and Vercel security headers are configured", () => {
@@ -81,4 +90,15 @@ test("built site contains the canonical registration URL", () => {
       readFileSync(join(assetDir, name), "utf8").includes(registrationUrl),
     ),
   );
+});
+
+test("mobile and reduced-motion fallbacks remain available", () => {
+  const css = read("src/styles.css");
+  const app = read("src/App.tsx");
+  assert.ok(css.includes("-webkit-text-size-adjust: 100%"));
+  assert.ok(css.includes("env(safe-area-inset-bottom)"));
+  assert.ok(css.includes("@media (prefers-reduced-motion: reduce)"));
+  assert.ok(css.includes("@media (hover: none)"));
+  assert.ok(app.includes("useReducedMotion"));
+  assert.ok(app.includes("tracks-route-progress"));
 });

@@ -7,6 +7,9 @@ export const event = {
   venue: "SRM University-AP",
   price: 329,
   prizePool: "₹30,000",
+  workshopStart: "11:00 AM",
+  hackathonStart: "05:00 PM",
+  hackathonFinish: "05:00 AM",
   registrationUrl:
     "https://forms.easebuzz.in/register/SRMAPIA9oJ/synora-registration", // Final URL supplied by the organizers.
   registrationOpen: true,
@@ -26,10 +29,18 @@ export const announcements = [
   {
     id: "workshops",
     tag: "WORKSHOPS",
-    title: "Four hours. A head start.",
-    body: "Learn about hackathons, ideation, tools and teamwork. Sessions run 11 AM–1 PM and 2–4 PM. OD will be provided.",
+    title: "Start from the basics at 11 AM.",
+    body: "Four hours of beginner-friendly workshops cover hackathon essentials, ideation, tools, and teamwork. Sessions run 11 AM–1 PM and 2–4 PM. OD will be provided.",
     link: "#schedule",
     linkLabel: "Explore the schedule",
+  },
+  {
+    id: "build-your-way",
+    tag: "BUILD YOUR WAY",
+    title: "Your problem. Your solution.",
+    body: "Choose your own problem statement in one of seven domains. Every team receives one complimentary domain for its project website, valid for one year. Food is provided.",
+    link: "#tracks",
+    linkLabel: "Explore the domains",
   },
   {
     id: "night",
@@ -44,48 +55,48 @@ export const announcements = [
 export const schedules = {
   workshops: {
     label: "Workshops",
-    note: "Workshop session times are confirmed in the event poster. The workshop date and room will be announced here.",
+    note: "17 September · Four hours of beginner-friendly learning. Rooms and the detailed workshop agenda will be announced.",
     entries: [
       {
         time: "11:00 AM",
         end: "— 01:00 PM",
-        title: "Session 01 / Find your racing line",
+        title: "Session 01 / Start with the basics",
         description:
-          "Hackathon fundamentals, ideation, tools, and teamwork with guidance from industry experts.",
+          "Learn how a hackathon works and how to turn a real problem into a clear project idea. No prior hackathon experience is needed.",
       },
       {
         time: "02:00 PM",
         end: "— 04:00 PM",
-        title: "Session 02 / Ready for the grid",
+        title: "Session 02 / Tools, teams, and the build",
         description:
-          "Continue learning, explore your ideas and get ready to build with your team.",
+          "Work through the essential tools and teamwork basics, shape your own problem statement, and get ready to build.",
       },
     ],
   },
   hackathon: {
     label: "Hackathon",
-    note: "September 17–18 · 12 hours of hacking. Exact check-in, start, submission and judging times will be announced.",
+    note: "17 September, 5 PM to 18 September, 5 AM · 12 hours to build. Check-in, submission, and judging details will be announced.",
     entries: [
       {
-        time: "PITSTOP 01",
-        end: "TIME TBA",
-        title: "Check-in & race briefing",
+        time: "05:00 PM",
+        end: "17 SEP / START",
+        title: "Lights out. Start building.",
         description:
-          "Get the event briefing, team guidance, and problem-statement details from the organizers.",
+          "The 12-hour hackathon begins. Choose your own problem statement and build a solution with your team and mentor support.",
       },
       {
-        time: "12 HOURS",
-        end: "START TIME TBA",
-        title: "Code. Innovate. Compete.",
+        time: "OVERNIGHT",
+        end: "FOOD PROVIDED",
+        title: "Build, test, and take a pit stop.",
         description:
-          "Build a functional project with your crew, supported by seniors and mentors throughout the hackathon.",
+          "Keep iterating with your team. Food is provided; meal timing and service details will be shared by the organizers.",
       },
       {
-        time: "THE FINISH",
-        end: "TIME TBA",
-        title: "Showcase & judging",
+        time: "05:00 AM",
+        end: "18 SEP / FINISH",
+        title: "Cross the finish line.",
         description:
-          "Present what you built. Submission instructions and judging criteria will be published before the event.",
+          "The 12-hour build window ends. Submission instructions and the judging schedule will be shared before the event.",
       },
     ],
   },
@@ -113,6 +124,16 @@ export type Team = {
 // This file is public. Add only organizer-approved, opt-in teams; never include personal contact data.
 export const teams: Team[] = [];
 
+export const domains = [
+  { id: "01", name: "Python", category: "SOFTWARE" },
+  { id: "02", name: "Machine Learning", category: "INTELLIGENCE" },
+  { id: "03", name: "Data Science", category: "DATA" },
+  { id: "04", name: "Blockchain", category: "WEB3" },
+  { id: "05", name: "Generative AI", category: "CREATIVE TECH" },
+  { id: "06", name: "Embedded Systems", category: "HARDWARE" },
+  { id: "07", name: "DevOps", category: "INFRASTRUCTURE" },
+] as const;
+
 export const rules = [
   {
     title: "Who can join?",
@@ -127,8 +148,12 @@ export const rules = [
     text: "Registration is ₹329 per person, as advertised in the event posters. Review the final amount, any applicable fees, and payment terms on the registration page before paying.",
   },
   {
-    title: "What are the submission and judging rules?",
-    text: "The organizers will announce the final problem statements, judging criteria, submission deadline, and required deliverables. We’ll add them to Race Control and the resources section when released.",
+    title: "Can we choose our own problem statement?",
+    text: "Yes. Teams choose their own problem statement within any listed domain: Python, Machine Learning, Data Science, Blockchain, Generative AI, Embedded Systems, or DevOps. The organizers will announce the submission format and judging criteria before the event.",
+  },
+  {
+    title: "What is included for each team?",
+    text: "Food is provided during the event. Each team also receives one complimentary domain for its project website, valid for one year. The organizers will share the domain-claim process and hosting guidance.",
   },
   {
     title: "Where are the full competition policies?",
@@ -139,11 +164,11 @@ export const rules = [
 export const faqs = [
   {
     title: "Is this a good first hackathon?",
-    text: "Yes. SYNORA is designed with first-time participants in mind. Four hours of workshops and 30+ mentors will help you learn the process, meet people, and start building.",
+    text: "Yes. The four-hour workshop starts at 11 AM and teaches the essentials from the basics. You will learn how hackathons work, develop an idea, use the tools, and build with a team. More than 30 mentors will be there to help.",
   },
   {
     title: "Where and when is SYNORA?",
-    text: "SYNORA takes place at SRM University-AP on September 17–18, 2026. Specific rooms, check-in time, and the full event timetable will be announced.",
+    text: "SYNORA takes place at SRM University-AP on 17–18 September 2026. Workshops start at 11 AM on the 17th, and the 12-hour hackathon runs from 5 PM to 5 AM. Specific rooms, check-in, and judging times will be announced.",
   },
   {
     title: "Do I need a team before I register?",
@@ -155,11 +180,15 @@ export const faqs = [
   },
   {
     title: "How long is the event?",
-    text: "SYNORA is advertised as an 18-hour technology experience, including a 12-hour hackathon and four hours of workshops. The detailed timetable for the remaining activities will be announced.",
+    text: "The event runs from 11 AM on 17 September to 5 AM on 18 September. It includes four hours of workshops (11 AM–1 PM and 2–4 PM) and a 12-hour hackathon (5 PM–5 AM), with breaks between sessions.",
   },
   {
-    title: "What should I bring? Are food and accommodation included?",
-    text: "The organizers have not yet published an equipment checklist or details about food and accommodation. Check Race Control and the registration page for confirmed information before attending.",
+    title: "Is food provided? What about accommodation?",
+    text: "Food is provided. Meal details, an equipment checklist, and any accommodation arrangements have not yet been published; check Race Control and the registration page for updates.",
+  },
+  {
+    title: "How does the free domain work?",
+    text: "Each team receives one complimentary domain for its project website, valid for one year. The organizers will explain how to claim it and connect it to a hosted site. Domain registration does not itself include website hosting unless the organizers confirm it.",
   },
   {
     title: "Where do I find payment help or refund terms?",

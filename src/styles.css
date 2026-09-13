@@ -16,10 +16,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 94px;
+  overflow-x: hidden;
   overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 body {
   margin: 0;
+  overflow-x: hidden;
   overflow-x: clip;
 }
 a {
@@ -273,11 +277,15 @@ summary {
   color: white;
   width: min(460px, 100%);
   max-width: 100%;
+  height: 100vh;
   height: 100dvh;
+  max-height: 100vh;
   max-height: 100dvh;
   border: 0;
   padding: 0;
   margin: 0 0 0 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .mobile-menu::backdrop {
   background: #0009;
@@ -798,6 +806,128 @@ summary {
   font: 700 56px var(--display);
   fill: var(--red);
   letter-spacing: 1px;
+}
+.tracks-section {
+  background: #141615;
+  border-top: 1px solid #303330;
+  border-bottom: 1px solid #303330;
+}
+.tracks-route {
+  margin: -9px 0 36px;
+}
+.tracks-route-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: #9a9f9a;
+  font: 11px/1.5 var(--mono);
+  letter-spacing: 0.3px;
+}
+.tracks-route-labels b {
+  color: #f3f3ef;
+  font-weight: 500;
+}
+.tracks-route-labels > span:last-child {
+  text-align: right;
+}
+.tracks-route-line {
+  height: 2px;
+  margin: 18px 5px 0;
+  background: #414541;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.tracks-route-progress {
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  transform-origin: left center;
+}
+.tracks-route-line i {
+  position: relative;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #ee6b59;
+  border-radius: 50%;
+  background: #141615;
+}
+.track-list {
+  border-top: 1px solid #454b46;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.track-row {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 138px 22px;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #454b46;
+}
+.track-number,
+.track-category {
+  font: 11px/1.5 var(--mono);
+  letter-spacing: 0.6px;
+  color: #aab2aa;
+}
+.track-number {
+  color: #ef6b5d;
+}
+.track-row h3 {
+  font: 600 clamp(29px, 3.1vw, 44px) / 1.05 var(--display);
+  color: #f4f4ef;
+  margin: 0;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+.track-flag {
+  color: #ee6758;
+  opacity: 0.45;
+  transition: opacity 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .track-row:hover h3 {
+    color: #ff756a;
+    transform: translateX(8px);
+  }
+  .track-row:hover .track-flag {
+    opacity: 1;
+  }
+}
+.track-perks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 32px;
+}
+.track-perks > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  padding: 23px 24px;
+  border: 1px solid #444b43;
+  background: #1b201d;
+}
+.track-perks svg {
+  color: #ff756a;
+}
+.track-perks p {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+.track-perks strong {
+  font: 600 18px/1.1 var(--display);
+  letter-spacing: 0.3px;
+}
+.track-perks span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b9c0b8;
 }
 .feature-grid {
   display: grid;
@@ -2680,6 +2810,67 @@ summary {
     font-size: 6px;
   }
 }
+@media (max-width: 700px) {
+  .hero-copy > p,
+  .body-copy,
+  .section-description,
+  .announcement p,
+  .grid-empty p,
+  .accordion-list details > p {
+    font-size: 15px;
+  }
+  .hero-facts,
+  .stats-strip > div > span,
+  .schedule-date .timezone,
+  .schedule-time > span {
+    font-size: 10px;
+  }
+  .pass-includes {
+    font-size: 13px;
+  }
+  .tracks-route {
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+  .tracks-route-labels {
+    font-size: 9px;
+    gap: 6px;
+  }
+  .track-row {
+    grid-template-columns: 28px minmax(0, 1fr) 18px;
+    min-height: 69px;
+    gap: 12px;
+  }
+  .track-row h3 {
+    font-size: clamp(25px, 7vw, 35px);
+  }
+  .track-category {
+    display: none;
+  }
+  .track-perks {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 25px;
+  }
+  .track-perks > div {
+    padding: 19px;
+  }
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+  }
+  .mobile-register .button {
+    min-height: 44px;
+  }
+  .footer {
+    padding-bottom: calc(95px + env(safe-area-inset-bottom));
+  }
+}
+@media (hover: none) {
+  .button:hover {
+    transform: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2698,5 +2889,8 @@ summary {
   .terminal-line {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .tracks-route-progress {
+    transform: scaleX(1) !important;
   }
 }

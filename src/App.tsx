@@ -30,6 +30,8 @@ import {
   Sparkles,
   ShieldCheck,
   Search,
+  Globe2,
+  UtensilsCrossed,
 } from "lucide-react";
 import {
   event,
@@ -39,6 +41,7 @@ import {
   rules,
   faqs,
   resources,
+  domains,
 } from "./content";
 import {
   CardContainer,
@@ -85,6 +88,7 @@ function Header() {
         <Brand />
         <nav className="top-nav" aria-label="Main navigation">
           <a href="#overview">The experience</a>
+          <a href="#tracks">Domains</a>
           <a href="#schedule">Schedule</a>
           <a href="#teams">The grid</a>
           <a href="#rules">Rulebook</a>
@@ -272,19 +276,103 @@ function SectionHeading({
   );
 }
 
+function Tracks() {
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  return (
+    <section className="section tracks-section" id="tracks" ref={ref}>
+      <Reveal>
+        <SectionHeading
+          index="02"
+          label="CHOOSE YOUR LANE"
+          title="YOUR IDEA."
+          accent="YOUR TRACK."
+          description="Pick a domain and define your own problem statement. There is no fixed challenge list."
+        />
+      </Reveal>
+      <div
+        className="tracks-route"
+        role="img"
+        aria-label="Event journey: workshops at 11 AM, hackathon at 5 PM, finish at 5 AM"
+      >
+        <div className="tracks-route-labels">
+          <span>
+            <b>11 AM</b> / LEARN
+          </span>
+          <span>
+            <b>5 PM</b> / BUILD
+          </span>
+          <span>
+            <b>5 AM</b> / FINISH
+          </span>
+        </div>
+        <div className="tracks-route-line" aria-hidden="true">
+          <motion.div
+            className="tracks-route-progress"
+            style={{ scaleX: reduce ? 1 : scrollYProgress }}
+          />
+          <i />
+          <i />
+          <i />
+        </div>
+      </div>
+      <ol className="track-list" aria-label="Project domains">
+        {domains.map((domain, i) => (
+          <motion.li
+            key={domain.id}
+            className="track-row"
+            initial={reduce ? false : { opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: Math.min(i * 0.045, 0.2) }}
+          >
+            <span className="track-number">{domain.id}</span>
+            <h3>{domain.name}</h3>
+            <span className="track-category">{domain.category}</span>
+            <span className="track-flag" aria-hidden="true">
+              <Flag size={19} />
+            </span>
+          </motion.li>
+        ))}
+      </ol>
+      <div className="track-perks">
+        <div>
+          <Globe2 size={26} strokeWidth={1.5} />
+          <p>
+            <strong>ONE FREE DOMAIN / TEAM</strong>
+            <span>Use it for your project website. Valid for one year.</span>
+          </p>
+        </div>
+        <div>
+          <UtensilsCrossed size={26} strokeWidth={1.5} />
+          <p>
+            <strong>FOOD PROVIDED</strong>
+            <span>Fuel for your team during the event.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Schedule() {
   const [tab, setTab] = useState<keyof typeof schedules>("workshops");
+  const reduce = useReducedMotion();
   const keys = Object.keys(schedules) as (keyof typeof schedules)[];
   const panel = schedules[tab];
   return (
     <section className="section schedule-section light-section" id="schedule">
       <Reveal>
         <SectionHeading
-          index="03"
+          index="04"
           label="THE RACE WEEKEND"
           title="EVERY LAP"
           accent="COUNTS."
-          description="From the first workshop to the final pitch. Here’s how your SYNORA experience unfolds."
+          description="From the first workshop to the finish line. Here’s how your SYNORA experience unfolds."
         />
       </Reveal>
       <div className="schedule-layout">
@@ -300,7 +388,8 @@ function Schedule() {
             ALL TIMES IN IST (UTC+5:30)
           </div>
           <p>
-            Full timings and room details will be published in Race Control.
+            Workshops start at 11 AM. The hackathon begins at 5 PM and ends at 5
+            AM. Room and check-in details will follow.
           </p>
           <a className="text-link dark-link" href="#announcements">
             Read event updates <ArrowUpRight size={16} />
@@ -341,12 +430,16 @@ function Schedule() {
               </button>
             ))}
           </div>
-          <div
+          <motion.div
+            key={tab}
             id={`panel-${tab}`}
             role="tabpanel"
             aria-labelledby={`tab-${tab}`}
             tabIndex={0}
             className="schedule-panel"
+            initial={reduce ? false : { opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
           >
             <p className="schedule-note">{panel.note}</p>
             {panel.entries.map((entry, i) => (
@@ -364,7 +457,7 @@ function Schedule() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
           <div className="schedule-footer">
             <Flag size={14} />
             <span>LEARN THE TOOLS. TRUST YOUR TEAM. ENJOY THE RACE.</span>
@@ -387,7 +480,7 @@ function Teams() {
     <section className="section teams-section" id="teams">
       <Reveal>
         <SectionHeading
-          index="04"
+          index="05"
           label="TEAMS ON THE GRID"
           title="GREAT IDEAS."
           accent="BETTER TOGETHER."
@@ -566,7 +659,7 @@ export default function App() {
                     icon: Code2,
                     kicker: "THE WARM-UP",
                     title: "Learn it. Then build it.",
-                    text: "Four hours of workshops on hackathons, ideation, tools and teamwork.",
+                    text: "Four hours from the basics: hackathons, ideation, tools, and teamwork.",
                   },
                   {
                     icon: Users,
@@ -598,13 +691,14 @@ export default function App() {
                 ))}
               </div>
             </section>
+            <Tracks />
             <section
               className="section announcements-section"
               id="announcements"
             >
               <Reveal>
                 <SectionHeading
-                  index="02"
+                  index="03"
                   label="ANNOUNCEMENTS"
                   title="RACE CONTROL."
                   description="The latest briefings for your time on the grid. Keep this space on your radar."
@@ -637,7 +731,7 @@ export default function App() {
             <section className="section rules-section light-section" id="rules">
               <Reveal>
                 <SectionHeading
-                  index="05"
+                  index="06"
                   label="THE RULEBOOK"
                   title="A FAIR RACE."
                   accent="A GREAT EXPERIENCE."
@@ -666,7 +760,7 @@ export default function App() {
             <section className="section after-dark-section" id="after-dark">
               <Reveal>
                 <p className="eyebrow">
-                  <span>06</span> / OFF THE TRACK. ON A DIFFERENT FREQUENCY.
+                  <span>07</span> / OFF THE TRACK. ON A DIFFERENT FREQUENCY.
                 </p>
                 <div className="after-dark-heading">
                   <h2>
@@ -742,7 +836,7 @@ export default function App() {
             <section className="section faq-section" id="faq">
               <Reveal>
                 <SectionHeading
-                  index="07"
+                  index="08"
                   label="BEFORE LIGHTS OUT"
                   title="A FEW QUICK"
                   accent="PIT STOPS."
@@ -753,7 +847,7 @@ export default function App() {
             </section>
             <section className="section resources-section">
               <SectionHeading
-                index="08"
+                index="09"
                 label="THE PADDOCK"
                 title="YOUR RACE KIT."
               />
@@ -775,8 +869,9 @@ export default function App() {
                 ))}
               </div>
               <p className="resources-note">
-                Problem statements, submission instructions and the full
-                rulebook will be added when released.
+                Choose your own problem statement. Submission instructions,
+                judging criteria, and the full rulebook will be added when
+                confirmed.
               </p>
             </section>
           </div>
@@ -823,6 +918,8 @@ export default function App() {
               <span>12-hour hackathon</span>
               <span>30+ mentors</span>
               <span>After Dark</span>
+              <span>Food provided</span>
+              <span>One-year domain / team</span>
             </div>
             {event.registrationOpen ? (
               registrationUrl ? (
