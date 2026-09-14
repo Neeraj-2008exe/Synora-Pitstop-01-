@@ -58,6 +58,7 @@ test("release assets and Vercel security headers are configured", () => {
     "public/assets/synora-event-poster.png",
     "public/assets/synora-workshop-poster.png",
     "public/assets/synora-after-dark-poster.png",
+    "public/assets/f1-engine-sound.mp3",
     "public/privacy.html",
   ])
     assert.ok(existsSync(join(root, asset)), `Missing ${asset}`);

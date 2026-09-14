@@ -4,11 +4,17 @@
   background: #101010;
   font-synthesis: none;
   --red: #ff392e;
+  --f1-red: #ff1801;
+  --f1-red-glow: rgba(255, 24, 1, 0.6);
+  --telemetry-cyan: #00f0ff;
+  --telemetry-green: #00e676;
+  --telemetry-yellow: #ffb800;
   --paper: #f2f1ed;
   --muted: #a4a5a4;
   --border: #2d2e2f;
   --display: "Barlow Condensed", Impact, sans-serif;
   --mono: "IBM Plex Mono", monospace;
+  --font-mono: "Share Tech Mono", "IBM Plex Mono", monospace;
 }
 * {
   box-sizing: border-box;
@@ -2871,6 +2877,701 @@ summary {
     transform: none;
   }
 }
+/* Motorsport Carbon Fiber & Technical HUD Theming */
+.carbon-panel {
+  background: 
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, #111 10px),
+    #181818;
+  background-size: 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.8),
+    0 10px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.carbon-bg {
+  background-color: #07080b;
+  background-image: 
+    radial-gradient(ellipse at 50% 50%, rgba(20, 24, 36, 0.65) 0%, rgba(5, 6, 8, 0.95) 100%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.015) 75%, rgba(255, 255, 255, 0.015)),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.015) 75%, rgba(255, 255, 255, 0.015));
+  background-size: 100% 100%, 8px 8px, 8px 8px;
+  background-position: 0 0, 0 0, 4px 4px;
+}
+
+/* F1 TELEMETRY LOADING SCREEN */
+#f1-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background-color: #030406;
+  background-image: 
+    radial-gradient(ellipse at 50% 30%, rgba(30, 0, 0, 0.4) 0%, rgba(3, 4, 6, 0.85) 65%, #030406 100%),
+    url('/assets/f1_pitlane_bg.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 44px 20px;
+  overflow: hidden;
+  user-select: none;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.8, 0, 0.2, 1), transform 0.6s cubic-bezier(0.8, 0, 0.2, 1), visibility 0.6s;
+}
+
+#f1-loader.loader-hidden {
+  opacity: 0;
+  transform: scale(1.04);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(180deg, rgba(3, 4, 6, 0.88) 0%, rgba(3, 4, 6, 0.45) 50%, rgba(3, 4, 6, 0.2) 80%, rgba(3, 4, 6, 0.85) 100%),
+    radial-gradient(circle at 50% 40%, transparent 40%, rgba(3, 4, 6, 0.75) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.exact-header {
+  width: 100%;
+  max-width: 1380px;
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 10;
+}
+
+.header-meta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #72798e;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+}
+
+.header-meta-left .app-title {
+  color: #c4cad8;
+  font-weight: 700;
+  font-size: 0.74rem;
+  margin-bottom: 2px;
+}
+
+.header-brand-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand-main-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 2.7rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  line-height: 1;
+}
+
+.brand-o-accent {
+  color: #ff1801;
+  text-shadow: 0 0 16px rgba(255, 24, 1, 0.8), 0 0 30px rgba(255, 24, 1, 0.4);
+}
+
+.mobile-only-hud-left,
+.mobile-only-hud-right,
+.mobile-race-slogan,
+.mobile-bottom-tagline {
+  display: none;
+}
+
+.racing-checkered-flag {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 7px);
+  grid-template-rows: repeat(2, 7px);
+  gap: 1.5px;
+  transform: skewX(-16deg);
+  margin-left: 2px;
+}
+
+.flag-box {
+  width: 7px;
+  height: 7px;
+  background-color: #ff1801;
+}
+.flag-box.dim {
+  background-color: #610900;
+}
+
+.brand-subtitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: #e2e6f0;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.brand-tagline {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.22em;
+  color: #8c94a8;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.header-meta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #72798e;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.slash-accent {
+  color: #ff1801;
+  font-weight: 900;
+}
+
+.exact-main-stage {
+  width: 100%;
+  max-width: 1420px;
+  display: grid;
+  grid-template-columns: 260px 1fr 260px;
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 10;
+  margin: auto 0 0;
+}
+
+.telemetry-card-exact {
+  width: 100%;
+  background: rgba(10, 12, 16, 0.78);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 16px 18px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.track-card-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.track-location-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #e5ebf8;
+  letter-spacing: 0.1em;
+}
+
+.track-location-country {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: #686f82;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.track-svg-container {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0 12px;
+  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3));
+}
+
+.track-telemetry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.track-data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #7b8296;
+}
+
+.track-data-row .val-green {
+  color: #00e676;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+}
+
+.track-data-row .val-yellow {
+  color: #ffb800;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 184, 0, 0.4);
+}
+
+.track-data-row .val-red {
+  color: #ff1801;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 24, 1, 0.4);
+}
+
+.systems-card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #e5ebf8;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.systems-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.system-check-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #8c94a8;
+  transition: color 0.2s ease;
+}
+
+.system-check-item.verified {
+  color: #f0f4fc;
+}
+
+.system-check-item .check-mark {
+  color: #00e676;
+  font-weight: bold;
+  font-size: 0.95rem;
+  text-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+}
+
+.system-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 24, 1, 0.25);
+  border-top-color: #ff1801;
+  border-radius: 50%;
+  animation: spinnerRotate 0.8s infinite linear;
+}
+
+@keyframes spinnerRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tachometer-center-exact {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-housing {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(10, 12, 17, 0.95) 55%, rgba(18, 22, 30, 0.85) 75%, #1c212c 90%, rgba(5, 6, 8, 0.9) 100%);
+  box-shadow: 
+    0 0 40px rgba(0, 0, 0, 0.95),
+    inset 0 0 25px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.gauge-dial-inner-ring {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #080a0e 0%, #0c0e14 80%, #06070a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.gauge-svg-exact {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.gauge-needle-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.needle-pointer {
+  position: absolute;
+  width: 4px;
+  height: 185px;
+  bottom: 50%;
+  left: calc(50% - 2px);
+  transform-origin: 50% 100%;
+  transform: rotate(-135deg);
+  will-change: transform;
+}
+
+.needle-pointer::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ff1801, 0 0 30px #ff1801;
+  z-index: 2;
+}
+
+.needle-body-glow {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(255, 24, 1, 0.5) 0%, #ff1801 50%, #ffffff 100%);
+  border-radius: 2px;
+  box-shadow: 
+    0 0 12px #ff1801,
+    0 0 24px rgba(255, 24, 1, 0.6),
+    0 0 35px rgba(255, 24, 1, 0.3);
+}
+
+.gauge-center-text-stack {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+}
+
+.exact-rpm-val {
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.exact-rpm-unit {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #8c94a8;
+  letter-spacing: 0.15em;
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+
+.exact-pct-val {
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #ffffff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.exact-loading-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: #7b8296;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.gauge-bottom-progress-bar-container {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 8;
+  width: 100%;
+}
+
+.pill-progress-track {
+  width: 280px;
+  height: 8px;
+  background: rgba(10, 12, 16, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: visible;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.95);
+  position: relative;
+}
+
+.pill-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff3300 0%, #ff1801 70%, #ffffff 100%);
+  border-radius: 20px;
+  box-shadow: 0 0 10px #ff1801, 0 0 20px rgba(255, 24, 1, 0.7);
+  position: relative;
+  transition: width 0.08s linear;
+}
+
+.pill-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border: 1.5px solid #ff1801;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ffffff, 0 0 16px #ff1801;
+  display: block;
+}
+
+.pill-slogan {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #b5bccf;
+  text-transform: uppercase;
+}
+
+.flanking-slogans-row {
+  width: 100%;
+  max-width: 1380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 10;
+  margin-top: 10px;
+}
+
+.flank-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #72798e;
+  letter-spacing: 0.12em;
+}
+
+.flank-left .passion-block {
+  font-style: italic;
+}
+
+.flank-left .pole-block {
+  color: #a2aabf;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.flank-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #72798e;
+  letter-spacing: 0.12em;
+  text-align: right;
+}
+
+.flank-right .future-block {
+  font-style: italic;
+}
+
+.flank-right .engineering-block {
+  border-left: 2px solid var(--f1-red);
+  padding-left: 8px;
+  color: #a2aabf;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.exact-bottom-actions {
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .exact-main-stage {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .desktop-only-card {
+    display: none !important;
+  }
+  .desktop-only-meta {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #f1-loader {
+    background-image: 
+      radial-gradient(ellipse at 50% 25%, rgba(20, 0, 0, 0.4) 0%, rgba(3, 4, 6, 0.75) 55%, #030406 95%),
+      url('/assets/f1_mobile_car_bg.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    padding: max(14px, env(safe-area-inset-top)) 16px max(14px, env(safe-area-inset-bottom));
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .mobile-only-hud-left,
+  .mobile-only-hud-right {
+    display: flex !important;
+  }
+  .exact-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    margin-top: 4px;
+  }
+  .header-meta-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 25;
+  }
+  .header-meta-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    align-items: flex-end;
+    text-align: right;
+    z-index: 25;
+  }
+  .header-brand-center {
+    margin-top: 24px;
+    text-align: center;
+  }
+  .brand-main-title {
+    font-size: 2.15rem;
+    letter-spacing: 0.08em;
+  }
+  .tachometer-center-exact {
+    width: 320px;
+    height: 320px;
+  }
+  .gauge-housing {
+    width: 300px;
+    height: 300px;
+  }
+  .gauge-dial-inner-ring {
+    width: 240px;
+    height: 240px;
+  }
+  .exact-rpm-val {
+    font-size: 2.1rem;
+  }
+  .exact-pct-val {
+    font-size: 1.6rem;
+  }
+  .pill-progress-track {
+    width: 220px;
+  }
+  .exact-bottom-actions {
+    bottom: 12px;
+    right: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -33,6 +33,7 @@ import {
   Globe2,
   UtensilsCrossed,
 } from "lucide-react";
+import { F1Loader } from "./F1Loader";
 import {
   event,
   announcements,
@@ -574,10 +575,14 @@ function Accordions({
 }
 
 export default function App() {
+  const [showLoader, setShowLoader] = useState(true);
   const { scrollYProgress } = useScroll();
   const registrationUrl = safeExternalUrl(event.registrationUrl);
   return (
     <>
+      {showLoader && (
+        <F1Loader onEnterSite={() => setShowLoader(false)} />
+      )}
       <a className="skip-link" href="#main">
         Skip to content
       </a>
